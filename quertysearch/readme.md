@@ -12,7 +12,7 @@ Sample run of this program:
 
 ```
 Enter a word or enter ! to exit: car
-down, right, right, select, left, left, up, up, select, up, up, right, right, right, select
+down, down, right, right, select, left, left, up, select, up, right, right, right, select
 Enter a word or enter ! to exit: !
 ```
 
