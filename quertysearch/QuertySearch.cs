@@ -1,5 +1,3 @@
-using static System.Math;
-
 namespace quertysearch;
 
 public static class QuertySearch
@@ -101,20 +99,6 @@ public static class QuertySearch
             yield return Right;
             horizontalDifference--;
         }
-        
-        /* fancypants way of getting directions 
-        while (Abs(verticalDifference) > 0)
-        {
-            yield return verticalDifference > 0 ? Down : Up;
-            verticalDifference += verticalDifference > 0 ? -1 : 1;
-        }
-            
-        while (Abs(horizontalDifference) > 0)
-        {
-            yield return horizontalDifference > 0 ? Right : Left;
-            horizontalDifference += horizontalDifference > 0 ? -1 : 1;
-        }
-        */
 
         yield return Select;
     }
