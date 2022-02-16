@@ -8,15 +8,34 @@
 > $ 'down, down, right, right, select, left, left, up, select, up, right, right, right, select'
 > ```
 
+[Original Newsletter Issue](https://buttondown.email/cassidoo/archive/if-you-hit-a-wrong-note-its-the-next-note-that/)
+
 Sample run of this program:
 
 ```
 Enter a word or enter ! to exit: car
-down, right, right, select, left, left, up, up, select, up, up, right, right, right, select
+down, down, right, right, select, left, left, up, select, up, right, right, right, select
 Enter a word or enter ! to exit: !
 ```
 
-The specific order of the control statements probably doesn't matter, but it made testing a bit annoying, so code is to specifically emit controls in preference order of DOWN > LEFT > UP > RIGHT:
+Original pass had precedence of ANY VERTICAL > ANY HORIZONTAL:
+
+```c#
+while (Abs(verticalDifference) > 0)
+{
+    yield return verticalDifference > 0 ? "down" : "up";
+    verticalDifference += verticalDifference > 0 ? -1 : 1;
+}
+    
+while (Abs(horizontalDifference) > 0)
+{
+    yield return horizontalDifference > 0 ? "right" : "left";
+    horizontalDifference += horizontalDifference > 0 ? -1 : 1;
+}
+```
+
+The specific order of the control statements probably doesn't matter, but it meant that the output for __CAR__ didn't match the given output exactly, so code is to specifically emit controls in preference order of DOWN > LEFT > UP > RIGHT:
+
 ```c#
 while (verticalDifference > 0)
 {
@@ -40,21 +59,5 @@ while (horizontalDifference > 0)
 {
     yield return "right";
     horizontalDifference--;
-}
-```
-
-Original pass had precedence of ANY VERTICAL > ANY HORIZONTAL:
-
-```c#
-while (Abs(verticalDifference) > 0)
-{
-    yield return verticalDifference > 0 ? "down" : "up";
-    verticalDifference += verticalDifference > 0 ? -1 : 1;
-}
-    
-while (Abs(horizontalDifference) > 0)
-{
-    yield return horizontalDifference > 0 ? "right" : "left";
-    horizontalDifference += horizontalDifference > 0 ? -1 : 1;
 }
 ```
