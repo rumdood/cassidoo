@@ -46,22 +46,45 @@ public static class QuertySearch
 
     private static string GetControlUsingDictionary(string word)
     {
-        if (KeyMap.Count == 0)
-        {
-            for (var rowIndex = 0; rowIndex < Keys.Length; rowIndex++)
-            {
-                for (var columnIndex = 0; columnIndex < Keys[rowIndex].Length; columnIndex++)
-                {
-                    KeyMap[Keys[rowIndex][columnIndex]] = new Coordinate(rowIndex, columnIndex);
-                }
-            }
-        }
-
         var output = new List<string>();
         var current = new Coordinate(0, 0);
 
+        var maxIndex = new Coordinate(0, 0);
+
         foreach (var c in word.ToLower())
         {
+            if (!char.IsLetter(c))
+            {
+                throw new InvalidOperationException("Gotta be a letter, dude");
+            }
+
+            if (!KeyMap.ContainsKey(c))
+            {
+                for (var rowIndex = maxIndex.Row; rowIndex < Keys.Length; rowIndex++)
+                {
+                    for (var columnIndex = maxIndex.Column; columnIndex < Keys[rowIndex].Length; columnIndex++)
+                    {
+                        KeyMap[Keys[rowIndex][columnIndex]] = new Coordinate(rowIndex, columnIndex);
+
+                        if (Keys[rowIndex][columnIndex] == c)
+                        {
+                            maxIndex.Column = columnIndex;
+                            break;
+                        }
+                    }
+
+                    if (KeyMap.ContainsKey(c))
+                    {
+                        maxIndex.Row = rowIndex;
+                        break;
+                    }
+                    else
+                    {
+                        maxIndex.Column = 0;
+                    }
+                }
+            }
+
             var target = KeyMap[c];
             output.AddRange(GetControlsBetweenCoordinates(current, target));
             current = target;
