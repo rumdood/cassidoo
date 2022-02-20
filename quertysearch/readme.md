@@ -18,6 +18,9 @@ down, down, right, right, select, left, left, up, select, up, right, right, righ
 Enter a word or enter ! to exit: !
 ```
 
+## Random Notes Nobody Cares About
+
+#### Calculating Directions
 Original pass had precedence of ANY VERTICAL > ANY HORIZONTAL:
 
 ```c#
@@ -59,5 +62,46 @@ while (horizontalDifference > 0)
 {
     yield return "right";
     horizontalDifference--;
+}
+```
+
+#### Obsessive Optimizations
+##### (or how you can tell I've done too many interviews lately)
+
+I had  the code in place at one point to not load the entire KeyMap (dictionary of keys/positions) on first run, but rather to build the KeyMap on demand. If a character was not in the keymap, find the last key indexed into the map and then iterate from there until you find the key. This means you could have a theoretical, insanely large keyboard and potentially avoid iterating through all of them.
+
+```c#
+private static Coordinate MaxIndexedKey = new MaxIndexedKey(0, 0);
+...
+// load the dictionary as needed
+// this is a silly optimization for 26 elements. It would be simpler and fine to just preload the entire
+// dictionary at the outset. But now you can have a keyboard of UNLIMITED KEYS!
+// This is why I'm in therapy.
+if (!KeyMap.TryGetValue(c, out var target))
+{
+    for (var rowIndex = MaxIndexedKey.Row; rowIndex < Keys.Length; rowIndex++)
+    {
+        for (var columnIndex = MaxIndexedKey.Column; columnIndex < Keys[rowIndex].Length; columnIndex++)
+        {
+            KeyMap[Keys[rowIndex][columnIndex]] = new Coordinate(rowIndex, columnIndex);
+
+            if (Keys[rowIndex][columnIndex] == c)
+            {
+                MaxIndexedKey.Column = columnIndex;
+                break;
+            }
+        }
+
+        if (KeyMap.ContainsKey(c))
+        {
+            MaxIndexedKey.Row = rowIndex;
+            break;
+        }
+
+        MaxIndexedKey.Column = 0;
+    }
+    
+
+    target = MaxIndexedKey;
 }
 ```
