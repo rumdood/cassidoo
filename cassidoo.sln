@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cassiboogle", "cassiboogle\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quertysearch", "quertysearch\quertysearch.csproj", "{E076C474-959A-43B3-A3DC-CDDBB1E528B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sequentializer", "sequentializer\sequentializer.csproj", "{5853D06A-FEBE-40B3-B970-A4897E27B14E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{E076C474-959A-43B3-A3DC-CDDBB1E528B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E076C474-959A-43B3-A3DC-CDDBB1E528B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E076C474-959A-43B3-A3DC-CDDBB1E528B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5853D06A-FEBE-40B3-B970-A4897E27B14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5853D06A-FEBE-40B3-B970-A4897E27B14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5853D06A-FEBE-40B3-B970-A4897E27B14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5853D06A-FEBE-40B3-B970-A4897E27B14E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
